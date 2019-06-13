@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Kam Black</title>
+	<atom:link href="https://kam.black/feed/" rel="self" type="application/rss+xml" />
+	<link>http://kam.black/</link>
+	<description>Just another WordPress site</description>
+	<lastBuildDate>Thu, 13 Jun 2019 14:25:12 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.2.1</generator>
+	<item>
+		<title>Webcomic With CSS Grid</title>
+		<link>https://kam.black/2019/06/12/webcomic-with-css-grid/</link>
+				<comments>https://kam.black/2019/06/12/webcomic-with-css-grid/#respond</comments>
+				<pubDate>Wed, 12 Jun 2019 17:39:07 +0000</pubDate>
+		<dc:creator><![CDATA[kamblack]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">https://kam.black/?p=55</guid>
+				<description><![CDATA[Making a comic using CSS Grid, by splitting it out into panels, has a ton of advantages: Each panel can have its own alt tag, making your comic accessible as well as getting better SEO. While this might not be perfect as a transcript, you can use aria-describedby to point to the transcript elsewhere on &#8230; <a href="https://kam.black/2019/06/12/webcomic-with-css-grid/" class="more-link">Continue reading<span class="screen-reader-text"> "Webcomic With CSS Grid"</span></a>]]></description>
+								<content:encoded><![CDATA[
+<p>Making a comic using CSS Grid, by splitting it out into panels, has a ton of advantages:</p>
+
+
+
+<ul><li>Each panel can have its own alt tag, making your comic accessible as well as getting better SEO. While this might not be perfect as a transcript, you can use <code>aria-describedby</code> to point to the transcript elsewhere on the page, and a screen reader user will get the same effect.</li><li>By designing a mobile panel layout and a desktop panel layout, you can make the panels reflow depending on how wide the screen is. No need to send people to WebToons or annoy desktop users with massive images as wide as the sun!</li><li>If you&#8217;re the type to use animated GIFs every now and then, you only need to animate one panel instead of the whole page. Easier on you and faster loading for the reader.</li><li>You now have the option of making individual panels interactive using JavaScript. Useless? Debatable. Cool? Definitely.</li><li>You can style each panel individually using CSS. Different borders for different panels? Hover states? CSS animations? It&#8217;s all there.</li></ul>
+
+
+
+<p>I can think of two potential downsides. First, it might be extra work for the creator to break your file into different files for each panel. This is true, but if you&#8217;re refactoring your comic for social media and meta cards anyway, this shouldn&#8217;t be much extra.</p>
+
+
+
+<p>Secondly, as a performance thing, the browser is making a lot more calls to the server. Once for each file. The difference shouldn&#8217;t be noticeable except on slow networks, but the page should still work fine regardless. If you really want to side-step this you can do some extra work and save each panel as an SVG symbol in a single file. then each <code>&lt;img&gt;</code> tag will look for a xlink:use symbol instead of another server call. There&#8217;s also the easier option of putting your images on a CDN to begin with, but hey. You do you.</p>
+
+
+
+<p>And now, an example, featuring <a href="https://www.peppercarrot.com/en/article440/episode-25-there-are-no-shortcuts">&#8220;Pepper &amp; Carrot&#8221; by David Revoy</a>. Disclaimer: This example is not using reflowing, or alt tags. It is simply the comic as produced, replicated using CSS Grid.</p>
+
+
+
+<img src="https://kam.black/wp-content/uploads/2019/06/00-01.jpg"/>
+
+
+
+<style>
+.comic-page img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.comic-page-1 {
+display: grid;
+grid-template-columns: 30% 2fr 50%;
+grid-gap: .5em;
+}
+.comic-page-1 img:first-child {
+grid-column: 1 / -1;
+}
+</style>
+<div class="comic-page comic-page-1">
+<img src="https://kam.black/wp-content/uploads/2019/06/01-01.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/01-02.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/01-03.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/01-04.jpg">
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+.comic-page-2 {
+display: grid;
+grid-template-columns: 1fr 1fr;
+grid-gap: .5em;
+}
+.comic-page-2 img:nth-child(1),
+.comic-page-2 img:nth-child(4),
+.comic-page-2 img:nth-child(5) {
+grid-column: 1 / -1;
+}
+</style>
+<div class="comic-page comic-page-2">
+<img src="https://kam.black/wp-content/uploads/2019/06/02-01.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/02-02.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/02-03.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/02-04.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/02-05.jpg">
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+.comic-page-3 {
+display: grid;
+grid-template-columns: 25% 1fr 33.33%;
+grid-gap: .5em;
+}
+.comic-page-3 img:nth-child(1),
+.comic-page-3 img:nth-child(4) {
+grid-column: span 2;
+}
+.comic-page-3 img:nth-child(5) {
+grid-column: span 3;
+}
+</style>
+<div class="comic-page comic-page-3">
+<img src="https://kam.black/wp-content/uploads/2019/06/03-01.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/03-02.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/03-03.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/03-04.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/03-05.jpg">
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+.comic-page-4 {
+display: grid;
+grid-template-columns: 1fr 1fr;
+grid-gap: .5em;
+}
+.comic-page-4 img:nth-child(1),
+.comic-page-4 img:nth-child(2) {
+grid-column: span 2;
+}
+</style>
+<div class="comic-page comic-page-4">
+<img src="https://kam.black/wp-content/uploads/2019/06/04-01.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/04-02.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/04-03.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/04-04.jpg">
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+.comic-page-5 {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-gap: .5em;
+}
+.comic-page-5 img:nth-child(1) {
+grid-column: span 2;
+}
+.comic-page-5 img:nth-child(3),
+.comic-page-5 img:nth-child(4),
+.comic-page-5 img:nth-child(5) {
+grid-column: span 3;
+}
+</style>
+<div class="comic-page comic-page-5">
+<img src="https://kam.black/wp-content/uploads/2019/06/05-01.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/05-02.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/05-03.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/05-04.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/05-05.jpg">
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+.comic-page-6 {
+display: grid;
+grid-template-columns: 45% 1fr;
+grid-gap: .5em;
+}
+.comic-page-6 img:nth-child(3),
+.comic-page-6 img:nth-child(4) {
+grid-column: span 2;
+}
+</style>
+<div class="comic-page comic-page-6">
+<img src="https://kam.black/wp-content/uploads/2019/06/06-01.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/06-02.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/06-03.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/06-04.jpg">
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+.comic-page-7 {
+display: grid;
+grid-template-columns: 33% 1fr 33%;
+grid-gap: .5em;
+}
+.comic-page-7 img:nth-child(1),
+.comic-page-7 img:nth-child(2),
+.comic-page-7 img:nth-child(3) {
+object-fit: unset;
+}
+.comic-page-7 img:nth-child(1) {
+padding-bottom: 1em;
+}
+.comic-page-7 img:nth-child(2) {
+padding-bottom: 70px;
+}
+.comic-page-7 img:nth-child(3) {
+padding-bottom: 5px;
+}
+.comic-page-7 img:nth-child(4),
+.comic-page-7 img:nth-child(5) {
+grid-column: span 3;
+}
+.comic-page-7 img:nth-child(4) {
+margin-top: -75px;
+height: calc(100% + 75px);
+}
+</style>
+<div class="comic-page comic-page-7">
+<img src="https://kam.black/wp-content/uploads/2019/06/07-01.png">
+<img src="https://kam.black/wp-content/uploads/2019/06/07-02.png">
+<img src="https://kam.black/wp-content/uploads/2019/06/07-03.png">
+<img src="https://kam.black/wp-content/uploads/2019/06/07-04.png">
+<img src="https://kam.black/wp-content/uploads/2019/06/07-05.jpg">
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+.comic-page-8 {
+display: grid;
+grid-template-columns: 1fr 20% 20% 20%;
+grid-gap: .5em;
+}
+.comic-page-8 img:nth-child(1),
+.comic-page-8 img:nth-child(6) {
+grid-column: span 4;
+}
+</style>
+<div class="comic-page comic-page-8">
+<img src="https://kam.black/wp-content/uploads/2019/06/08-01.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/08-02.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/08-03.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/08-04.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/08-05.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/08-06.jpg">
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<style>
+.comic-page-9 {
+display: grid;
+grid-template-columns: 30% 1fr;
+grid-gap: .5em;
+}
+.comic-page-9 img:nth-child(1),
+.comic-page-9 img:nth-child(4) {
+grid-column: span 2;
+}
+</style>
+<div class="comic-page comic-page-9">
+<img src="https://kam.black/wp-content/uploads/2019/06/09-01.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/09-02.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/09-03.jpg">
+<img src="https://kam.black/wp-content/uploads/2019/06/09-04.jpg">
+</div>
+]]></content:encoded>
+							<wfw:commentRss>https://kam.black/2019/06/12/webcomic-with-css-grid/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+							</item>
+		<item>
+		<title>Making stuff</title>
+		<link>https://kam.black/2019/06/12/making-stuff/</link>
+				<comments>https://kam.black/2019/06/12/making-stuff/#respond</comments>
+				<pubDate>Wed, 12 Jun 2019 16:23:35 +0000</pubDate>
+		<dc:creator><![CDATA[kamblack]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">https://kam.black/?p=7</guid>
+				<description><![CDATA[I clicked a blockAnd chose a verseWhat do I say?Who knows, it's a curse Some say&#8230; Some]]></description>
+								<content:encoded><![CDATA[
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-text-color has-light-gray-color has-background has-dark-red-background-color" href="#">I&#8217;m a button, I do button things<img class="wp-image-8" style="width: 75px;" src="https://kam.black/wp-content/uploads/2019/06/cheese-grater.jpg" alt="" srcset="https://kam.black/wp-content/uploads/2019/06/cheese-grater.jpg 1146w, https://kam.black/wp-content/uploads/2019/06/cheese-grater-300x187.jpg 300w, https://kam.black/wp-content/uploads/2019/06/cheese-grater-768x478.jpg 768w, https://kam.black/wp-content/uploads/2019/06/cheese-grater-1024x638.jpg 1024w" sizes="(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 62vw, 840px" /></a></div>
+
+
+
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-text-color has-light-gray-color has-background has-dark-red-background-color" href="#">I&#8217;m a button, I do button things<img class="wp-image-8" style="width: 75px;" src="https://kam.black/wp-content/uploads/2019/06/cheese-grater.jpg" alt="" srcset="https://kam.black/wp-content/uploads/2019/06/cheese-grater.jpg 1146w, https://kam.black/wp-content/uploads/2019/06/cheese-grater-300x187.jpg 300w, https://kam.black/wp-content/uploads/2019/06/cheese-grater-768x478.jpg 768w, https://kam.black/wp-content/uploads/2019/06/cheese-grater-1024x638.jpg 1024w" sizes="(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 62vw, 840px" /></a></div>
+
+
+
+<figure class="wp-block-image"><img alt=""/></figure>
+
+
+
+<blockquote class="wp-block-quote"><p></p></blockquote>
+
+
+
+<figure class="wp-block-audio"><audio controls></audio></figure>
+
+
+
+<div class="wp-block-cover has-background-dim" style="background-image:url(https://kam.black/wp-content/uploads/2019/06/cheese-grater.jpg)"><div class="wp-block-cover__inner-container">
+<p style="text-align:center" class="has-text-color has-large-font-size has-white-color">This is a cover block. Wow</p>
+</div></div>
+
+
+
+<pre class="wp-block-verse">I clicked a block<br>And chose a verse<br>What do I say?<br>Who knows, it's a curse</pre>
+
+
+
+<pre class="wp-block-code"><code>&lt;html>
+  &lt;p>Some code is in here&lt;/p>
+&lt;/html></code></pre>
+
+
+
+<figure class="wp-block-pullquote has-white-background-color is-style-solid-color"><blockquote class="has-text-color has-blue-gray-color"><p>Some say&#8230;</p><cite>Some</cite></blockquote></figure>
+
+
+
+<table class="wp-block-table"><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table>
+
+
+
+
+<ul class="wp-block-archives wp-block-archives-list">	<li><a href='https://kam.black/2019/06/'>June 2019</a></li>
+</ul>
+
+<div class="wp-block-calendar"><table id="wp-calendar">
+	<caption>June 2019</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="Monday">M</th>
+		<th scope="col" title="Tuesday">T</th>
+		<th scope="col" title="Wednesday">W</th>
+		<th scope="col" title="Thursday">T</th>
+		<th scope="col" title="Friday">F</th>
+		<th scope="col" title="Saturday">S</th>
+		<th scope="col" title="Sunday">S</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev" class="pad">&nbsp;</td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next" class="pad">&nbsp;</td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr>
+		<td colspan="5" class="pad">&nbsp;</td><td>1</td><td>2</td>
+	</tr>
+	<tr>
+		<td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td>
+	</tr>
+	<tr>
+		<td>10</td><td><a href="https://kam.black/2019/06/11/" aria-label="Posts published on June 11, 2019">11</a></td><td><a href="https://kam.black/2019/06/12/" aria-label="Posts published on June 12, 2019">12</a></td><td id="today">13</td><td>14</td><td>15</td><td>16</td>
+	</tr>
+	<tr>
+		<td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td>
+	</tr>
+	<tr>
+		<td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td>
+	</tr>
+	</tbody>
+	</table></div>
+
+
+<figure class="wp-block-embed-flickr aligncenter wp-block-embed is-type-photo is-provider-flickr"><div class="wp-block-embed__wrapper">
+<a href="https://flic.kr/p/2gcwCYs"><img src="https://live.staticflickr.com/65535/48044503258_dfb271fb28_c.jpg" alt="Balbuzard ------- Aigle pêcheur ------ Osprey ---------       águila pescadora" width="800" height="534" /></a>
+</div><figcaption>A picture</figcaption></figure>
+
+
+
+<div class="wp-block-media-text alignwide"><figure class="wp-block-media-text__media"></figure><div class="wp-block-media-text__content">
+<p class="has-large-font-size"></p>
+</div></div>
+]]></content:encoded>
+							<wfw:commentRss>https://kam.black/2019/06/12/making-stuff/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+							</item>
+		<item>
+		<title>Hello world!</title>
+		<link>https://kam.black/2019/06/11/hello-world/</link>
+				<comments>https://kam.black/2019/06/11/hello-world/#comments</comments>
+				<pubDate>Tue, 11 Jun 2019 21:38:26 +0000</pubDate>
+		<dc:creator><![CDATA[kamblack]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">https://kam.black/?p=1</guid>
+				<description><![CDATA[Welcome to WordPress. This is your first post. Edit or delete it, then start writing!]]></description>
+								<content:encoded><![CDATA[<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
+]]></content:encoded>
+							<wfw:commentRss>https://kam.black/2019/06/11/hello-world/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+							</item>
+	</channel>
+</rss>
